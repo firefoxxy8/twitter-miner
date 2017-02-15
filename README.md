@@ -13,6 +13,15 @@ $ sudo docker exec -it mysqldb /bin/bash
 # mysql -u twitter -p twitterdb
 ```
 
+## Start
+```
+$ export TWITTER_TOKEN="<HERE TOKEN>" 
+$ export TWITTER_TOKEN_SECRET="<HERE TOKEN SECRET>" 
+$ export TWITTER_KEY="<HERE KEY>" 
+$ export TWITTER_SECRET="<HERE KEY SECRET>"
+$ sh src/main/script/twitter-miner.sh "home"
+```
+
 ## SQL
 
 
