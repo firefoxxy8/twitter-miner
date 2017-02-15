@@ -33,9 +33,9 @@ if __name__ == '__main__':
 
   args = parser.parse_args()
   print "access_token:",args.access_token
-  print "access_token_secret",args.access_token_secret
-  print "consumer_key",args.consumer_key
-  print "consumer_secret",args.consumer_secret
+  print "access_token_secret:",args.access_token_secret
+  print "consumer_key:",args.consumer_key
+  print "consumer_secret:",args.consumer_secret
 
 
 
