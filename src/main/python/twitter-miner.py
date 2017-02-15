@@ -22,7 +22,36 @@ from datetime import datetime
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-#
+
+#MySQL
+import mysql.connector
+
+muser='twitter' 
+mpassword='twitter'
+mdatabase='twitterdb' 
+mhost='localhost'
+
+cnx = None
+
+def create_table():
+  global cnx
+  if not cnx:
+    cnx = mysql.connector.connect(user=muser, password=mpassword, database=mdatabase, host=mhost)
+  #
+  ddl = ("CREATE TABLE twitterdb.tweets (id VARCHAR(40) PRIMARY KEY,created_at VARCHAR(20),location VARCHAR(100),source VARCHAR(255),screen_name VARCHAR(100),text VARCHAR(1000))")
+  cursor = cnx.cursor()
+  cursor.execute(ddl)  
+
+def save_tweet(data):
+  global cnx
+  if not cnx:
+    cnx = mysql.connector.connect(user=muser, password=mpassword, database=mdatabase, host=mhost)
+  #
+  dml = ("INSERT INTO tweets(id,created_at,location,source,screen_name,text) VALUES (%(id)s,%(created_at)s,%(location)s,%(source)s,%(screen_name)s,%(text)s)")
+  dat = data
+  cursor = cnx.cursor()
+  cursor.execute(dml, dat)
+  cnx.commit()  
 
 class StdOutListener(StreamListener):
     def on_data(self, data):
@@ -43,6 +72,9 @@ class StdOutListener(StreamListener):
           print "Created At:",created_at
           print "Location:",location
           print "-----------------------"
+          #
+          if args.save == "yes":
+            save_tweet({"text":text,"screen_name":screen_name,"source":source,"id":id,"created_at":created_at,"location":location})
       except Exception, Argument:
           print "Unexpected Error!", Argument
           print(data)
@@ -59,6 +91,7 @@ if __name__ == '__main__':
   parser.add_argument('--consumer_secret', default="")
   parser.add_argument('--filter', default="good food")
   parser.add_argument('--show_raw', default="no")
+  parser.add_argument('--save', default="no")
 
   args = parser.parse_args()
   print "access_token:",args.access_token
@@ -67,6 +100,12 @@ if __name__ == '__main__':
   print "consumer_secret:",args.consumer_secret
   print "filter:",args.filter
   print "show_raw:",args.show_raw
+  print "save:",args.save
+  print "--"
+
+  if args.save == "yes":
+    create_table()
+    print "Table created..."
 
   print "Starting listening to Twitter..."
 

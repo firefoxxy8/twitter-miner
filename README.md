@@ -2,7 +2,8 @@
 
 ## Installation
 ```
-pip install tweepy
+$ pip install tweepy
+$ git clone https://github.com/goliasz/twitter-miner.git
 ```
 
 ## MySQL Setup
@@ -11,6 +12,9 @@ $ sudo docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=t
 $ sudo docker exec -it mysqldb /bin/bash
 # mysql -u twitter -p twitterdb
 ```
+
+## SQL
+
 
 # License
 Apache License, Version 2.0
