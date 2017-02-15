@@ -24,18 +24,58 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 #
 
+class StdOutListener(StreamListener):
+    def on_data(self, data):
+      try:
+          message = json.loads(data)
+          if args.show_raw=="yes":
+            print message
+          text = message.get("text").encode("utf8")
+          screen_name = message.get("user").get("screen_name")
+          source = message.get("source")
+          id = message.get("id")
+          created_at = message.get("created_at")
+          location = message.get("user").get("location")
+          print "Text:\n",text
+          print "Screen Name:",screen_name
+          print "Source:",source
+          print "ID:",id
+          print "Created At:",created_at
+          print "Location:",location
+          print "-----------------------"
+      except Exception, Argument:
+          print "Unexpected Error!", Argument
+          print(data)
+      return True
+
+    def on_error(self, status):
+        print status
+
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description="Twitter Miner")
   parser.add_argument('--access_token', default="")
   parser.add_argument('--access_token_secret', default="")
   parser.add_argument('--consumer_key', default="")
   parser.add_argument('--consumer_secret', default="")
+  parser.add_argument('--filter', default="good food")
+  parser.add_argument('--show_raw', default="no")
 
   args = parser.parse_args()
   print "access_token:",args.access_token
   print "access_token_secret:",args.access_token_secret
   print "consumer_key:",args.consumer_key
   print "consumer_secret:",args.consumer_secret
+  print "filter:",args.filter
+  print "show_raw:",args.show_raw
+
+  print "Starting listening to Twitter..."
+
+  l = StdOutListener()
+  auth = OAuthHandler(args.consumer_key, args.consumer_secret)
+  auth.set_access_token(args.access_token, args.access_token_secret)
+  stream = Stream(auth, l)
+
+  stream.filter(track=[args.filter])
 
 
 
