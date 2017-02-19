@@ -2,7 +2,7 @@
 
 ## Installation
 ```
-$ echo https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.1.tar.gz >> requirements.txt
+$ echo https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.1.5.tar.gz >> requirements.txt
 $ pip install -r ./requirements.txt
 $ pip install tweepy
 $ git clone https://github.com/goliasz/twitter-miner.git
