@@ -26,21 +26,24 @@ from tweepy import Stream
 #MySQL
 import mysql.connector
 
-muser='twitter' 
-mpassword='twitter'
-mdatabase='twitterdb' 
+muser='demo'
+mpassword='demo'
+mdatabase='demo'
 mhost='localhost'
 
 cnx = None
 
 def create_table():
-  global cnx
-  if not cnx:
-    cnx = mysql.connector.connect(user=muser, password=mpassword, database=mdatabase, host=mhost)
-  #
-  ddl = ("CREATE TABLE twitterdb.tweets (id VARCHAR(40) PRIMARY KEY,created_at VARCHAR(20),location VARCHAR(100),source VARCHAR(255),screen_name VARCHAR(100),text VARCHAR(1000))")
-  cursor = cnx.cursor()
-  cursor.execute(ddl)  
+  try:
+    global cnx
+    if not cnx:
+      cnx = mysql.connector.connect(user=muser, password=mpassword, database=mdatabase, host=mhost)
+    #
+    ddl = ("CREATE TABLE twitterdb.tweets (id VARCHAR(40) PRIMARY KEY,created_at VARCHAR(20),location VARCHAR(100),source VARCHAR(255),screen_name VARCHAR(100),text VARCHAR(1000))")
+    cursor = cnx.cursor()
+    cursor.execute(ddl)
+  except Exception,Argument:
+    print "Table probably exists:",str(Argument)
 
 def save_tweet(data):
   global cnx
@@ -51,7 +54,7 @@ def save_tweet(data):
   dat = data
   cursor = cnx.cursor()
   cursor.execute(dml, dat)
-  cnx.commit()  
+  cnx.commit()
 
 class StdOutListener(StreamListener):
     def on_data(self, data):
