@@ -39,7 +39,7 @@ def create_table():
     if not cnx:
       cnx = mysql.connector.connect(user=muser, password=mpassword, database=mdatabase, host=mhost)
     #
-    ddl = ("CREATE TABLE twitterdb.tweets (id VARCHAR(40) PRIMARY KEY,created_at VARCHAR(20),location VARCHAR(100),source VARCHAR(255),screen_name VARCHAR(100),text VARCHAR(1000))")
+    ddl = ("CREATE TABLE tweets (id VARCHAR(40) PRIMARY KEY,created_at VARCHAR(20),location VARCHAR(100),source VARCHAR(255),screen_name VARCHAR(100),text VARCHAR(1000))")
     cursor = cnx.cursor()
     cursor.execute(ddl)
   except Exception,Argument:
