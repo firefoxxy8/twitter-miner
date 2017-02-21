@@ -87,12 +87,12 @@ class StdOutListener(StreamListener):
         print status
 
 if __name__ == '__main__':
-  parser = argparse.ArgumentParser(description="Twitter Miner")
+  parser = argparse.ArgumentParser(description="Twitter Follower")
   parser.add_argument('--access_token', default="")
   parser.add_argument('--access_token_secret', default="")
   parser.add_argument('--consumer_key', default="")
   parser.add_argument('--consumer_secret', default="")
-  parser.add_argument('--filter', default="good food")
+  parser.add_argument('--follow', default="25073877")
   parser.add_argument('--show_raw', default="no")
   parser.add_argument('--save', default="no")
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
   print "access_token_secret:",args.access_token_secret
   print "consumer_key:",args.consumer_key
   print "consumer_secret:",args.consumer_secret
-  print "filter:",args.filter
+  print "follow:",args.filter
   print "show_raw:",args.show_raw
   print "save:",args.save
   print "--"
@@ -117,7 +117,7 @@ if __name__ == '__main__':
   auth.set_access_token(args.access_token, args.access_token_secret)
   stream = Stream(auth, l)
 
-  stream.filter(track=[args.filter])
+  stream.filter(follow=args.follow.split(","))
 
 
 

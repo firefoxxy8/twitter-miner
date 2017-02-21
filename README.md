@@ -2,16 +2,18 @@
 
 ## Installation
 ```
+$ echo https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.1.5.tar.gz >> requirements.txt
+$ pip install --egg -r ./requirements.txt
 $ pip install tweepy
 $ git clone https://github.com/goliasz/twitter-miner.git
 ```
 
 ## MySQL Setup
 ```
-$ sudo docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=twitterdb -e MYSQL_USER=twitter -e MYSQL_PASSWORD=twitter -e MYSQL_ROOT_HOST=172.17.0.1 -d -p 3306:3306 mysql/mysql-server:5.6
+$ sudo docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=demo -e MYSQL_USER=demo -e MYSQL_PASSWORD=demo -e MYSQL_ROOT_HOST=172.17.0.1 -d -p 3306:3306 mysql/mysql-server:5.6
 $ sudo docker exec -it mysqldb /bin/bash
-# mysql -u twitter -p twitterdb
-Passwd: twitter
+# mysql -u demo -p demo
+Passwd: demo
 ```
 
 ## Start
