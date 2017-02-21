@@ -101,7 +101,7 @@ if __name__ == '__main__':
   print "access_token_secret:",args.access_token_secret
   print "consumer_key:",args.consumer_key
   print "consumer_secret:",args.consumer_secret
-  print "follow:",args.filter
+  print "follow:",args.follow
   print "show_raw:",args.show_raw
   print "save:",args.save
   print "--"
